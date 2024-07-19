@@ -2,8 +2,9 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios"
 import {AxiosResponse} from "axios"
-export default function Quiz({params}: {params: {id: String}}) {
-  const [allQuestions, setallQuestions] = useState<
+
+export default function Quiz({params}: {params: {id: string}}) {
+  const [allQuestions, setAllQuestions] = useState<
     | {
         _id: string
         quiz_id: string
@@ -14,9 +15,10 @@ export default function Quiz({params}: {params: {id: String}}) {
     | []
   >([])
   const [activeQuestion, setActiveQuestion] = useState(0)
-  const [selectedAnswer, setSelectetedAnswer] = useState(false)
-  const [selectedAnswerIndex, setSelectetedAnswerIndex] =
-    useState<Number | null>(null)
+  const [selectedAnswer, setSelectedAnswer] = useState(false)
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<Number | null>(
+    null
+  )
   const [checked, setChecked] = useState(false)
   const [showResult, setShowResult] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -25,13 +27,14 @@ export default function Quiz({params}: {params: {id: String}}) {
     correctAnswers: 0,
     wrongAnswers: 0,
   })
+
   useEffect(() => {
     async function fetchData() {
       try {
         let data: AxiosResponse = await axios.get(
           `https://turboquizapi.onrender.com/quiz/${params.id}`
         )
-        setallQuestions(data.data.questions)
+        setAllQuestions(data.data.questions)
       } catch (error) {
         console.log(error)
       } finally {
@@ -39,21 +42,22 @@ export default function Quiz({params}: {params: {id: String}}) {
       }
     }
     fetchData()
-  }, [])
+  }, [params.id]) 
+
   const {question, options, correct_option} = allQuestions[activeQuestion] || {}
 
   const onAnswerSelected = (ans: string, idx: number) => {
     setChecked(true)
-    setSelectetedAnswerIndex(idx)
-    if (ans == correct_option) {
-      setSelectetedAnswer(true)
+    setSelectedAnswerIndex(idx)
+    if (ans === correct_option) {
+      setSelectedAnswer(true)
     } else {
-      setSelectetedAnswer(false)
+      setSelectedAnswer(false)
     }
   }
 
   const nextQuestion = () => {
-    setSelectetedAnswerIndex(null)
+    setSelectedAnswerIndex(null)
     setResult((prev) =>
       selectedAnswer
         ? {
@@ -66,7 +70,7 @@ export default function Quiz({params}: {params: {id: String}}) {
             wrongAnswers: prev.wrongAnswers + 1,
           }
     )
-    if (activeQuestion != allQuestions.length - 1) {
+    if (activeQuestion !== allQuestions.length - 1) {
       setActiveQuestion((prev) => prev + 1)
     } else {
       setActiveQuestion(0)
@@ -80,7 +84,7 @@ export default function Quiz({params}: {params: {id: String}}) {
       {!showResult ? (
         <>
           <div className="flex justify-center mt-20 text-gray-200">
-            <h1 className="text-4xl">Let's Start the Quiz!</h1>
+            <h1 className="text-4xl">Let&apos;s Start the Quiz!</h1>
           </div>
           <div className="text-center mt-7 text-gray-200">
             <h2>
@@ -124,13 +128,13 @@ export default function Quiz({params}: {params: {id: String}}) {
                         <button
                           onClick={() => onAnswerSelected(ans, idx)}
                           className={`border text-gray-200 ${
-                            selectedAnswerIndex == idx
+                            selectedAnswerIndex === idx
                               ? "bg-slate-500 bg-gray-600/60"
                               : ""
                           } hover:bg-slate-600 hover:text-black rounded-sm text-center w-full m-1 md:m-0 md:w-1/2`}
                           key={idx}
                         >
-                          {ans} 
+                          {ans}
                         </button>
                       )
                     })}
@@ -141,8 +145,8 @@ export default function Quiz({params}: {params: {id: String}}) {
                       onClick={() => nextQuestion()}
                       className="border p-2 md:mt-4 mt-16 rounded-md bg-blue-700 hover:bg-blue-400a"
                     >
-                      {activeQuestion == allQuestions.length - 1
-                        ? "FINSIH"
+                      {activeQuestion === allQuestions.length - 1
+                        ? "FINISH"
                         : "NEXT"}
                     </button>
                   ) : (
@@ -150,8 +154,8 @@ export default function Quiz({params}: {params: {id: String}}) {
                       disabled
                       className="border p-2 md:mt-4 mt-16  rounded-md bg-gray-400 hover:bg-blue-400a"
                     >
-                      {activeQuestion == allQuestions.length - 1
-                        ? "FINSIH"
+                      {activeQuestion === allQuestions.length - 1
+                        ? "FINISH"
                         : "NEXT"}
                     </button>
                   )}

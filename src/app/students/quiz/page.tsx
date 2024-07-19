@@ -43,7 +43,7 @@ export default function Home() {
             {/* for map to replicate  */}
             <ul>
               {quizList.map((quiz, index) => (
-                <Link href={`/students/quiz/${quiz._id}`} >
+                <Link href={`/students/quiz/${quiz._id}`}  key={index} >
                   <div
                     key={index}
                     className=" flex justify-between w-[90%] h-14 text-2xl text-gray-300 capitalize p-2 bg-gray-600/70 rounded-sm border m-4 border-gray-400 cursor-pointer hover:outline-none hover::bg-gray-100"
