@@ -9,7 +9,7 @@ export default function Home() {
         </div>
         <div className="w-full flex justify-center gap-32">
           <Link
-            href="/master"
+            href="/master/quiz"
             className="mt-10 border p-5 rounded-md bg-slate-300 text-black hover:bg-slate-50"
           >
             Quiz Master

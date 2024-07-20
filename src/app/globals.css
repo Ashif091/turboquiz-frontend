@@ -7,3 +7,22 @@ body {
  background-size: cover;
  font-family: 'Poppins', sans-serif;
 } 
+/* Customize the scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Adjust width as needed */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #48484871; /* Background color of the track */
+  border-radius: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #45454584; /* Scrollbar thumb color */
+  border-radius: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #090909; /* Scrollbar thumb hover color */
+}
+
